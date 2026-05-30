@@ -3,6 +3,6 @@ message: "If you use this software, please cite it using the metadata below. Aut
 title: "Pairwise Shape Recovery"
 version: "0.1.0"
 date-released: "2026-05-30"
-repository-code: "https://example.com/tbd-pairwise-shape-recovery"
+repository-code: "https://github.com/Hatrusov/pairwise-shape-recovery"
 authors:
-  - name: "Authors TBD before publication"
+  - name: "Dmitry Tukeev, Aleksandr Khatrusov, Olga Afanaseva"
