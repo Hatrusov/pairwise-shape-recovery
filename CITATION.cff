@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below. Author and repository metadata are marked TBD until publication."
+title: "Pairwise Shape Recovery"
+version: "0.1.0"
+date-released: "2026-05-30"
+repository-code: "https://example.com/tbd-pairwise-shape-recovery"
+authors:
+  - name: "Authors TBD before publication"

@@ -1,0 +1,78 @@
+seed: 20261225
+
+sample_sizes: [10, 20, 30, 40, 50]
+
+distributions:
+  - uniform
+  - normal
+  - cauchy
+  - student_t5
+
+distribution_parameters:
+  uniform:
+    low: -1.7320508075688772
+    high: 1.7320508075688772
+  normal:
+    loc: 0.0
+    scale: 1.0
+  cauchy:
+    loc: 0.0
+    scale: 1.0
+  student_t5:
+    df: 5
+  lognormal:
+    mean: 0.0
+    sigma: 0.5
+  gamma:
+    shape: 2.0
+    scale: 1.0
+  weibull:
+    shape: 1.5
+  skewnormal:
+    shape: 8.0
+    loc: 0.0
+    scale: 1.0
+
+n_selected_per_distribution: 100
+
+low_skew_selection:
+  skew_abs_threshold: 0.1
+  initial_pool_size: 1000
+  max_pool_size: 200000
+  strategy: "sort_by_abs_skew_then_take_first_satisfying_threshold"
+
+moderate_shape_selection:
+  pool_size: 1000
+  decile: 4
+  decile_indexing: "one_based"
+  score: "abs_skew_times_kurtosis"
+  n_selected_per_distribution: 100
+
+statistics:
+  sd_mode: "population"
+  skew_mode: "adjusted_fisher_pearson"
+  kurtosis_mode: "standardized_fourth_moment_no_minus_3"
+
+outputs:
+  root_dir: "outputs/primary_protocol"
+  save_raw_samples: true
+  save_normalized_samples: true
+  save_derived_sequences: false
+  save_result_matrices: true
+  save_excel_workbook: true
+  save_figures: true
+
+validation:
+  run_analytic_half_sum_checks: true
+  tolerance: 1e-10
+
+extended_protocol:
+  enabled: true
+  root_subdir: "extended_protocol"
+  distributions:
+    - lognormal
+    - gamma
+    - weibull
+    - skewnormal
+  n_selected_per_distribution: 100
+  sample_sizes: [10, 20, 30, 40, 50]
