@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import time
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -47,7 +47,6 @@ from pairwise_shape_recovery.transforms import (
     ordered_pairwise_differences,
     pairwise_half_sums,
 )
-
 
 RESULT_COLUMNS = [
     "original_skewness",
@@ -214,7 +213,7 @@ def _assemble_regime_samples(
 
 
 def _correlation_summary_records(
-    correlations: dict[tuple, pd.DataFrame]
+    correlations: dict[tuple, pd.DataFrame],
 ) -> pd.DataFrame:
     rows = []
     for key, matrix in sorted(correlations.items()):
@@ -277,9 +276,7 @@ def _run_protocol(
 
             logger.info("Building result matrix for %s N=%s", output_regime, n_value)
             result_matrix = build_result_matrix(samples, config)
-            result_matrix_with_metadata = attach_result_metadata(
-                samples, result_matrix
-            )
+            result_matrix_with_metadata = attach_result_metadata(samples, result_matrix)
             result_matrices[(output_regime, n_value)] = result_matrix
             if config.outputs.save_result_matrices:
                 save_dataframe_csv_parquet(
@@ -473,7 +470,7 @@ def _new_metadata(
     config_path: str | Path | None,
 ) -> dict[str, Any]:
     metadata: dict[str, Any] = {
-        "date_time_utc": datetime.now(timezone.utc).isoformat(),
+        "date_time_utc": datetime.now(UTC).isoformat(),
         "python_version": ".".join(map(str, __import__("sys").version_info[:3])),
         "package_version": __version__,
         "seed": config.seed,

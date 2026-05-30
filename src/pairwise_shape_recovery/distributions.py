@@ -10,7 +10,6 @@ from scipy import stats
 
 from pairwise_shape_recovery.statistics import NEAR_ZERO_VARIANCE
 
-
 SUPPORTED_DISTRIBUTIONS = {
     "uniform",
     "normal",
@@ -56,9 +55,7 @@ def _draw_once(
     if distribution_name == "student_t5":
         return stats.t.rvs(df=parameters["df"], size=n, random_state=rng)
     if distribution_name == "lognormal":
-        return rng.lognormal(
-            mean=parameters["mean"], sigma=parameters["sigma"], size=n
-        )
+        return rng.lognormal(mean=parameters["mean"], sigma=parameters["sigma"], size=n)
     if distribution_name == "gamma":
         return stats.gamma.rvs(
             a=parameters["shape"],
@@ -67,9 +64,7 @@ def _draw_once(
             random_state=rng,
         )
     if distribution_name == "weibull":
-        return stats.weibull_min.rvs(
-            c=parameters["shape"], size=n, random_state=rng
-        )
+        return stats.weibull_min.rvs(c=parameters["shape"], size=n, random_state=rng)
     if distribution_name == "skewnormal":
         return stats.skewnorm.rvs(
             a=parameters["shape"],

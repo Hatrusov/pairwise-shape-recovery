@@ -17,13 +17,9 @@ def validate_half_sum_identity_config(stats_config: StatisticsConfig) -> None:
         raise ValueError("Half-sum identities require sd_mode='population'.")
     if stats_config.skew_mode != "adjusted_fisher_pearson":
         raise ValueError(
-            "Half-sum skewness identity requires "
-            "skew_mode='adjusted_fisher_pearson'."
+            "Half-sum skewness identity requires skew_mode='adjusted_fisher_pearson'."
         )
-    if (
-        stats_config.kurtosis_mode
-        != "standardized_fourth_moment_no_minus_3"
-    ):
+    if stats_config.kurtosis_mode != "standardized_fourth_moment_no_minus_3":
         raise ValueError(
             "Half-sum kurtosis identity requires "
             "kurtosis_mode='standardized_fourth_moment_no_minus_3'."
@@ -81,9 +77,7 @@ def quick_half_sum_identity_check(
     n = int(sample.size)
     original = compute_characteristics(sample, stats_config)
     half = compute_characteristics(pairwise_half_sums(sample), stats_config)
-    predicted_skew = float(
-        analytic_inverse_skewness_from_half_sum(half["skewness"], n)
-    )
+    predicted_skew = float(analytic_inverse_skewness_from_half_sum(half["skewness"], n))
     predicted_kurtosis = float(
         analytic_inverse_kurtosis_from_half_sum(half["kurtosis"], n)
     )
@@ -135,23 +129,23 @@ def build_half_sum_analytic_checks(
             skew_ols = skew_ols[skew_ols["distribution"] == distribution]
             kurt_ols = kurt_ols[kurt_ols["distribution"] == distribution]
         row: dict[str, float | int | str] = {
-                "regime": regime,
-                "N": n,
-                "n_observations": int(len(matrix)),
-                "analytic_skew_slope": half_sum_skewness_inverse_slope(n),
-                "ols_skew_intercept": float(skew_ols["intercept"].iloc[0]),
-                "ols_skew_slope": float(skew_ols["slope"].iloc[0]),
-                "skew_max_abs_error": float(np.max(skew_errors)),
-                "skew_mean_abs_error": float(np.mean(skew_errors)),
-                "skew_median_abs_error": float(np.median(skew_errors)),
-                "analytic_kurtosis_intercept": half_sum_kurtosis_inverse_intercept(n),
-                "analytic_kurtosis_slope": half_sum_kurtosis_inverse_slope(n),
-                "ols_kurtosis_intercept": float(kurt_ols["intercept"].iloc[0]),
-                "ols_kurtosis_slope": float(kurt_ols["slope"].iloc[0]),
-                "kurtosis_max_abs_error": float(np.max(kurt_errors)),
-                "kurtosis_mean_abs_error": float(np.mean(kurt_errors)),
-                "kurtosis_median_abs_error": float(np.median(kurt_errors)),
-            }
+            "regime": regime,
+            "N": n,
+            "n_observations": int(len(matrix)),
+            "analytic_skew_slope": half_sum_skewness_inverse_slope(n),
+            "ols_skew_intercept": float(skew_ols["intercept"].iloc[0]),
+            "ols_skew_slope": float(skew_ols["slope"].iloc[0]),
+            "skew_max_abs_error": float(np.max(skew_errors)),
+            "skew_mean_abs_error": float(np.mean(skew_errors)),
+            "skew_median_abs_error": float(np.median(skew_errors)),
+            "analytic_kurtosis_intercept": half_sum_kurtosis_inverse_intercept(n),
+            "analytic_kurtosis_slope": half_sum_kurtosis_inverse_slope(n),
+            "ols_kurtosis_intercept": float(kurt_ols["intercept"].iloc[0]),
+            "ols_kurtosis_slope": float(kurt_ols["slope"].iloc[0]),
+            "kurtosis_max_abs_error": float(np.max(kurt_errors)),
+            "kurtosis_mean_abs_error": float(np.mean(kurt_errors)),
+            "kurtosis_median_abs_error": float(np.median(kurt_errors)),
+        }
         if distribution is not None:
             row["distribution"] = distribution
         rows.append(row)

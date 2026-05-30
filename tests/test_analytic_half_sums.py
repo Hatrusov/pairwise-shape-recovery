@@ -97,4 +97,3 @@ def test_invalid_half_sum_identity_config_raises(
 ) -> None:
     with pytest.raises(ValueError):
         validate_half_sum_identity_config(stats_config)
-

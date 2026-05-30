@@ -51,4 +51,3 @@ def pairwise_half_sums(x: np.ndarray) -> np.ndarray:
     if result.size != expected:
         raise RuntimeError("Unexpected pairwise half-sum length.")
     return result
-

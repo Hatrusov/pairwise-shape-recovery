@@ -84,4 +84,3 @@ def test_normalize_rejects_non_population_sd_mode() -> None:
             np.asarray([1.0, 2.0, 3.0]),
             StatisticsConfig(sd_mode="sample"),
         )
-

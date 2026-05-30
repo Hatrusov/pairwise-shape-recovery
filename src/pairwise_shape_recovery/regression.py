@@ -20,7 +20,7 @@ def wape(
 
     denominator = float(np.sum(np.abs(y_true)))
     if np.isclose(denominator, 0.0):
-        message = f"WAPE denominator is close to zero"
+        message = "WAPE denominator is close to zero"
         if context:
             message = f"{message}: {context}"
         if warnings is not None:

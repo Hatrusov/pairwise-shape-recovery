@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 import argparse
+import shutil
 import subprocess
 import sys
-import shutil
 from pathlib import Path
 
 import numpy as np
@@ -58,9 +58,7 @@ def _cmd_validate(args: argparse.Namespace) -> int:
             x_norm = normalize_sample(x, config.statistics)
             errors = quick_half_sum_identity_check(x_norm, config.statistics)
             max_skew_error = max(max_skew_error, errors["skew_abs_error"])
-            max_kurtosis_error = max(
-                max_kurtosis_error, errors["kurtosis_abs_error"]
-            )
+            max_kurtosis_error = max(max_kurtosis_error, errors["kurtosis_abs_error"])
     print(f"Max skew identity error: {max_skew_error:.3e}")
     print(f"Max kurtosis identity error: {max_kurtosis_error:.3e}")
     if max_skew_error > tolerance * 10 or max_kurtosis_error > tolerance * 10:

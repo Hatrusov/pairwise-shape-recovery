@@ -122,18 +122,16 @@ def test_pipeline_smoke_outputs_and_metadata(tmp_path: Path) -> None:
     assert matrix.shape == (5, 8)
     assert list(matrix.columns) == RESULT_COLUMNS
     assert matrix_with_metadata.shape[0] == matrix.shape[0]
-    assert matrix_with_metadata["global_sample_id"].tolist() == samples[
-        "global_sample_id"
-    ].tolist()
+    assert (
+        matrix_with_metadata["global_sample_id"].tolist()
+        == samples["global_sample_id"].tolist()
+    )
     assert list(matrix_with_metadata[RESULT_COLUMNS].columns) == RESULT_COLUMNS
     assert pd.read_csv(moderate_shape_matrix).shape == (5, 8)
-    assert (
-        pd.read_csv(
-            output_root / "correlations" / "low_skew_selected_N10_correlation.csv",
-            index_col=0,
-        ).shape
-        == (8, 8)
-    )
+    assert pd.read_csv(
+        output_root / "correlations" / "low_skew_selected_N10_correlation.csv",
+        index_col=0,
+    ).shape == (8, 8)
 
     analytic = pd.read_csv(output_root / "analytic" / "half_sum_analytic_checks.csv")
     assert analytic["skew_max_abs_error"].max() < 1e-10
@@ -165,8 +163,7 @@ def test_pipeline_smoke_outputs_and_metadata(tmp_path: Path) -> None:
     assert all(len(sheet_name) <= 31 for sheet_name in workbook.sheetnames)
     assert "corr_by_dist" in workbook.sheetnames
     config_sheet_values = [
-        row[0]
-        for row in workbook["config"].iter_rows(min_row=2, values_only=True)
+        row[0] for row in workbook["config"].iter_rows(min_row=2, values_only=True)
     ]
     assert "seed" in config_sheet_values
     assert "distribution_parameters.normal.loc" in config_sheet_values
@@ -188,9 +185,7 @@ def test_extended_validation_smoke_uses_separate_metadata(tmp_path: Path) -> Non
     assert (extended_root / "metadata.json").exists()
     assert (extended_root / "config_used.yaml").exists()
     assert (
-        extended_root
-        / "result_matrices"
-        / "low_skew_selected_N10_result_matrix.csv"
+        extended_root / "result_matrices" / "low_skew_selected_N10_result_matrix.csv"
     ).exists()
     assert (
         extended_root
@@ -221,8 +216,7 @@ def test_extended_validation_smoke_uses_separate_metadata(tmp_path: Path) -> Non
         for record in extended_metadata["selection_metadata_records"]
     } == {"low_skew_selected", "moderate_shape_selected"}
     assert {
-        record["regime"]
-        for record in extended_metadata["selection_metadata_records"]
+        record["regime"] for record in extended_metadata["selection_metadata_records"]
     } == {"low_skew_selected", "moderate_shape_selected"}
 
 

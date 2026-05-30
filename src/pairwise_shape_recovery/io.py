@@ -25,13 +25,9 @@ def ensure_output_tree(root: str | Path) -> dict[str, Path]:
         / "result_matrices"
         / "by_distribution",
         "correlations": root_path / "correlations",
-        "correlations_by_distribution": root_path
-        / "correlations"
-        / "by_distribution",
+        "correlations_by_distribution": root_path / "correlations" / "by_distribution",
         "regressions": root_path / "regressions",
-        "regressions_by_distribution": root_path
-        / "regressions"
-        / "by_distribution",
+        "regressions_by_distribution": root_path / "regressions" / "by_distribution",
         "analytic": root_path / "analytic",
         "figures": root_path / "figures",
         "workbook": root_path / "workbook",

@@ -234,9 +234,7 @@ def select_moderate_shape_samples(
 
     for rank, record in enumerate(sorted_candidates, start=1):
         record["selection_rank"] = rank
-        record["selection_rule"] = (
-            "decile_abs_skew_times_kurtosis_moderate_shape"
-        )
+        record["selection_rule"] = "decile_abs_skew_times_kurtosis_moderate_shape"
 
     if metadata is not None:
         skewness = [candidate["skew_norm"] for candidate in candidates]

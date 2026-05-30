@@ -8,7 +8,6 @@ from typing import Any
 
 import yaml
 
-
 DEFAULT_DISTRIBUTION_PARAMETERS: dict[str, dict[str, float]] = {
     "uniform": {"low": -1.7320508075688772, "high": 1.7320508075688772},
     "normal": {"loc": 0.0, "scale": 1.0},
@@ -155,7 +154,7 @@ def _parse_float(value: Any) -> float:
 
 
 def _coerce_distribution_parameters(
-    values: dict[str, Any]
+    values: dict[str, Any],
 ) -> dict[str, dict[str, float]]:
     parameters: dict[str, dict[str, float]] = {}
     for distribution_name, raw_params in values.items():
@@ -164,20 +163,14 @@ def _coerce_distribution_parameters(
                 f"Unknown distribution in distribution_parameters: {distribution_name}"
             )
         if not isinstance(raw_params, dict):
-            raise ValueError(
-                f"Parameters for {distribution_name} must be a mapping."
-            )
+            raise ValueError(f"Parameters for {distribution_name} must be a mapping.")
         allowed = ALLOWED_DISTRIBUTION_PARAMETER_KEYS[distribution_name]
         unknown = sorted(set(raw_params) - allowed)
         if unknown:
-            raise ValueError(
-                f"Unknown parameters for {distribution_name}: {unknown}"
-            )
+            raise ValueError(f"Unknown parameters for {distribution_name}: {unknown}")
         missing = sorted(allowed - set(raw_params))
         if missing:
-            raise ValueError(
-                f"Missing parameters for {distribution_name}: {missing}"
-            )
+            raise ValueError(f"Missing parameters for {distribution_name}: {missing}")
         parameters[distribution_name] = {
             key: _parse_float(value) for key, value in raw_params.items()
         }

@@ -64,4 +64,3 @@ def test_transform_input_validation() -> None:
             transform(np.asarray([1.0]))
         with pytest.raises(ValueError):
             transform(np.ones((2, 2)))
-

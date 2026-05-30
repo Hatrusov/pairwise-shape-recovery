@@ -8,7 +8,6 @@ import numpy as np
 
 from pairwise_shape_recovery.config import StatisticsConfig
 
-
 NEAR_ZERO_VARIANCE = 1e-14
 
 
@@ -52,15 +51,11 @@ def compute_characteristics(
         with np.errstate(over="ignore", invalid="ignore", divide="ignore"):
             m3 = float(np.mean(centered**3))
             m4 = float(np.mean(centered**4))
-            g1 = m3 / (m2 ** 1.5)
+            g1 = m3 / (m2**1.5)
             beta2 = m4 / (m2**2)
 
         if stats_mode.skew_mode == "adjusted_fisher_pearson":
-            skewness = (
-                float(np.sqrt(n * (n - 1)) / (n - 2) * g1)
-                if n > 2
-                else np.nan
-            )
+            skewness = float(np.sqrt(n * (n - 1)) / (n - 2) * g1) if n > 2 else np.nan
         elif stats_mode.skew_mode == "moment":
             skewness = float(g1)
         else:
@@ -71,9 +66,7 @@ def compute_characteristics(
         elif stats_mode.kurtosis_mode == "excess":
             kurtosis = float(beta2 - 3.0)
         else:
-            raise ValueError(
-                f"Unsupported kurtosis_mode: {stats_mode.kurtosis_mode}"
-            )
+            raise ValueError(f"Unsupported kurtosis_mode: {stats_mode.kurtosis_mode}")
 
     return {
         "mean": mean_x,
