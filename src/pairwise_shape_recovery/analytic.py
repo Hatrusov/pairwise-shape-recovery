@@ -27,26 +27,32 @@ def validate_half_sum_identity_config(stats_config: StatisticsConfig) -> None:
 
 
 def half_sum_kurtosis_inverse_intercept(n: int) -> float:
-    """Intercept in beta2_x = a + b * beta2_half_sum for N > 8."""
+    """Intercept in beta2_x = a + b * beta2_half_sum for N >= 3, N != 8."""
 
-    if n <= 8:
-        raise ValueError("Half-sum kurtosis inverse identity requires N > 8.")
+    if not isinstance(n, (int, np.integer)) or n < 3 or n == 8:
+        raise ValueError(
+            "Half-sum kurtosis inverse identity requires integer N >= 3, N != 8."
+        )
     return float(-3.0 * n / (n - 8.0))
 
 
 def half_sum_kurtosis_inverse_slope(n: int) -> float:
-    """Slope in beta2_x = a + b * beta2_half_sum for N > 8."""
+    """Slope in beta2_x = a + b * beta2_half_sum for N >= 3, N != 8."""
 
-    if n <= 8:
-        raise ValueError("Half-sum kurtosis inverse identity requires N > 8.")
+    if not isinstance(n, (int, np.integer)) or n < 3 or n == 8:
+        raise ValueError(
+            "Half-sum kurtosis inverse identity requires integer N >= 3, N != 8."
+        )
     return float(2.0 * (n - 2.0) ** 2 / ((n - 1.0) * (n - 8.0)))
 
 
 def half_sum_skewness_inverse_slope(n: int) -> float:
     """Slope linking adjusted skewness of x to adjusted skewness of half-sums."""
 
-    if n <= 4:
-        raise ValueError("Half-sum skewness inverse identity requires N > 4.")
+    if not isinstance(n, (int, np.integer)) or n < 3 or n == 4:
+        raise ValueError(
+            "Half-sum skewness inverse identity requires integer N >= 3, N != 4."
+        )
     m = n * (n - 1) / 2.0
     numerator = n * np.sqrt((n - 1.0) * (n - 2.0)) * (m - 2.0)
     denominator = m * np.sqrt(m - 1.0) * (n - 4.0)

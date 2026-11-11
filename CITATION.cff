@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it using the metadata below."
 title: "Pairwise Shape Recovery"
-version: "0.1.0"
-date-released: "2026-05-30"
+version: "0.2.0"
+date-released: "2026-11-10"
 repository-code: "https://github.com/Hatrusov/pairwise-shape-recovery"
 authors:
   - name: "Dmitry Tukeev, Aleksandr Khatrusov, Olga Afanaseva"
